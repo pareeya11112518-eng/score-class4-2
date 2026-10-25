@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบรายงานผลการเรียนออนไลน์ - โรงเรียนสุพรรณภูมิ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1E6091;
+            --primary-gradient: linear-gradient(135deg, #0077B6 0%, #023E8A 100%);
+            --accent-gold: #FFB703;
+            --bg-page: #F0F8FF;
+            --card-bg: #FFFFFF;
+            --text-main: #1D2D44;
+            --text-muted: #6C757D;
+            --border-color: #CBD5E1;
+            --success-color: #2A9D8F;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-page);
+            background-image: radial-gradient(#CAE9FF 1px, transparent 1px);
+            background-size: 24px 24px;
+            color: var(--text-main);
+            padding: 30px 15px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        /* Header Card */
+        .header-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 119, 182, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            margin-bottom: 25px;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 21px; /* ระยะห่างเท่าพยัญชนะ ก (16pt) */
+            margin-bottom: 15px;
+        }
+
+        .logo-school {
+            height: 90px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-world {
+            height: 65px;
+            width: auto;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+
+        .school-name {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0077B6;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .sub-header {
+            font-size: 18px;
+            color: #48CAE4;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .badge-year {
+            display: inline-block;
+            background: linear-gradient(135deg, #0077B6 0%, #023E8A 100%);
+            color: white;
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0, 119, 182, 0.25);
+        }
+
+        /* Main Grid Layout (2 Columns) */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 850px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Teacher Card Left */
+        .teacher-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .teacher-avatar-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .teacher-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-gold);
+            box-shadow: 0 8px 20px rgba(255, 183, 3, 0.3);
+        }
+
+        .teacher-badge {
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-gold);
+            color: #000;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 20px;
+            white-space: nowrap;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+
+        .teacher-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .teacher-sub {
+            font-size: 14px;
+            color: #0077B6;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .teacher-note {
+            background: #E0F2FE;
+            color: #0369A1;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            width: 100%;
+        }
+
+        /* Search Card Right */
+        .search-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .search-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            background: #0077B6;
+            color: white;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 6px 15px rgba(0, 119, 182, 0.3);
+        }
+
+        .search-title-text h3 {
+            font-size: 20px;
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .search-title-text p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 45px 14px 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: #0077B6;
+            box-shadow: 0 0 0 4px rgba(0, 119, 182, 0.12);
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: none;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.2s;
+            box-shadow: 0 6px 18px rgba(2, 62, 138, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(2, 62, 138, 0.4);
+        }
+
+        .info-tip {
+            margin-top: 20px;
+            background: #F0F9FF;
+            border-left: 4px solid #0077B6;
+            padding: 12px 16px;
+            border-radius: 0 12px 12px 0;
+            font-size: 13px;
+            color: #0369A1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Results Section */
+        .result-section {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .student-info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+            border-left: 6px solid var(--accent-gold);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+
+        .info-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0077B6;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 18px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-number {
+            font-size: 34px;
+            font-weight: 700;
+            color: #0077B6;
+            margin: 4px 0;
+        }
+
+        /* Table Card */
+        .table-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+            overflow: hidden;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+        }
+
+        .table-header {
+            padding: 20px 25px;
+            background: #F8FAFC;
+            font-weight: 700;
+            color: #0077B6;
+            font-size: 18px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        th {
+            background: #E2E8F0;
+            color: #1E293B;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .category-row td {
+            background: #EDF2F7;
+            font-weight: 700;
+            color: #0F172A;
+            font-size: 15px;
+            border-top: 2px solid #CBD5E1;
+            border-bottom: 2px solid #CBD5E1;
+        }
+
+        .badge-pct {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            background: #E6F4EA;
+            color: #137333;
+        }
+
+        .btn-print {
+            background: #0077B6;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(0, 119, 182, 0.3);
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .main-grid, .btn-print { display: none !important; }
+            .header-card { box-shadow: none; border-bottom: 2px solid #000; }
+            .result-section { display: block !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header Card -->
+    <div class="header-card">
+        <div class="logo-group">
+            <img src="school-logo.png" alt="ตราโรงเรียนสุพรรณภูมิ" class="logo-school" onerror="this.src='https://lh3.googleusercontent.com/pw/AP1GczO2XzYw2-1S_0i-rT1J4iYtH_wzJk3F-Y'">
+            <img src="world-logo.png" alt="World Class Standard School" class="logo-world" onerror="this.src='https://lh3.googleusercontent.com/pw/AP1GczO01K8-3Yv5qZtqY_8iH9aE0P1_Y_11'">
+        </div>
+        <h1 class="school-name">โรงเรียนสุพรรณภูมิ</h1>
+        <div class="sub-header">ระบบรายงานผลการเรียนออนไลน์</div>
+        <span class="badge-year">ชั้นประถมศึกษาปีที่ 4/2 ปีการศึกษา 2569</span>
+    </div>
+
+    <!-- Main Grid (2 Columns) -->
+    <div class="main-grid">
+        <!-- Left: Teacher Profile -->
+        <div class="teacher-card">
+            <div class="teacher-avatar-container">
+                <img src="teacher.jpg" alt="ครูประจำชั้น" class="teacher-img" onerror="this.src='https://lh3.googleusercontent.com/pw/AP1GczP0i1i5_E0o9aZ9Y8Q'">
+                <div class="teacher-badge">★ ครูประจำชั้น</div>
+            </div>
+            <!-- แก้ไขลบคำว่า คุณครู ออกแล้ว -->
+            <h2 class="teacher-title">นางสาวปารียา ฟักอินทร์</h2>
+            <div class="teacher-sub">ครูประจำชั้นประถมศึกษาปีที่ 4/2</div>
+            <div class="teacher-note">
+                🎓 ดูแลและติดตามผลการเรียนประจำภาคเรียน
+            </div>
+        </div>
+
+        <!-- Right: Search Form -->
+        <div class="search-card">
+            <div class="search-header">
+                <div class="icon-box">🔍</div>
+                <div class="search-title-text">
+                    <h3>ค้นหาผลการเรียน</h3>
+                    <p>กรอกรหัสประจำตัว (5 หลัก) หรือเลขที่ เพื่อเข้าสู่ระบบ</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">🪪 รหัสประจำตัวนักเรียน (5 หลัก) หรือ เลขที่</label>
+                <div class="input-wrapper">
+                    <input type="text" id="searchInput" class="search-input" placeholder="เช่น 25171 หรือ เลขที่ 1" oninput="toggleClearBtn()" onkeypress="if(event.key==='Enter') searchResult()">
+                    <button id="clearBtn" class="clear-btn" onclick="clearInput()">✕</button>
+                </div>
+            </div>
+
+            <button onclick="searchResult()" class="btn-submit">
+                <span>🔍 ค้นหารายงานผลการเรียน</span>
+            </button>
+
+            <div class="info-tip">
+                <span>ℹ️</span>
+                <span><strong>คำแนะนำ:</strong> กรอกรหัสประจำตัว 5 หลัก หรือเลขที่ในห้องเรียน (1-35) เพื่อดูผลการเรียนเฉพาะบุคคล</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Display Section -->
+    <div id="resultSection" class="result-section">
+        <div class="student-info-card">
+            <div class="info-item">
+                <div class="info-label">เลขที่</div>
+                <div class="info-value" id="resNo">-</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">รหัสประจำตัว</div>
+                <div class="info-value" id="resId">-</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">ชื่อ - นามสกุล</div>
+                <div class="info-value" id="resName">-</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">ระดับชั้น</div>
+                <div class="info-value">ประถมศึกษาปีที่ 4/2</div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="info-label">คะแนนรวมทั้งหมด</div>
+                <div class="stat-number" id="resTotalScore">0</div>
+                <div class="info-label">เต็ม 724 คะแนน</div>
+            </div>
+            <div class="stat-card">
+                <div class="info-label">ร้อยละรวมเฉลี่ย</div>
+                <div class="stat-number" id="resTotalPct" style="color: #FFB703;">0%</div>
+                <div class="info-label">ประเมินทุกรายวิชา</div>
+            </div>
+            <div class="stat-card">
+                <div class="info-label">ผลการประเมิน</div>
+                <div class="stat-number" style="color: #2A9D8F; font-size: 26px; margin-top: 8px;">ผ่านเกณฑ์</div>
+                <div class="info-label">ตามหลักสูตรสถานศึกษา</div>
+            </div>
+        </div>
+
+        <div class="table-card">
+            <div class="table-header">📋 รายละเอียดผลการเรียนแยกตามรายวิชา</div>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">รหัสวิชา</th>
+                            <th style="width: 55%;">รายวิชา</th>
+                            <th style="width: 25%; text-align: center;">คิดเป็นร้อยละ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="subjectsTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <button onclick="window.print()" class="btn-print">🖨️ พิมพ์ใบรายงานผลการเรียน (A4)</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ฐานข้อมูลจริงนักเรียน ป.4/2 ทั้ง 35 คน จากไฟล์ 4.2.xls
+    const rawData = [
+        {"no": 1, "id": "25171", "name": "ฐิติวัฒน์ เกตุนิธี", "scores": [41, 36, 40, 34, 39, 43, 42, 38, 38, 40, 44, 49, 44, 39, 567, 78.31]},
+        {"no": 2, "id": "25173", "name": "ธนาธิป เปียบุญมี", "scores": [38, 39, 31, 36, 39, 42, 38, 36, 37, 37, 36, 51, 43, 40, 543, 75.00]},
+        {"no": 3, "id": "25174", "name": "นราธิป นระมาตย์", "scores": [43, 39, 39, 38, 40, 43, 41, 42, 46, 40, 42, 48, 42, 44, 587, 81.08]},
+        {"no": 4, "id": "25175", "name": "นัทธภัทร ศรีทวีรัชต์", "scores": [48, 47, 45, 42, 47, 46, 46, 44, 47, 45, 45, 52, 44, 48, 646, 89.23]},
+        {"no": 5, "id": "25176", "name": "นันทสิทธิ์ ศรีจงใจ", "scores": [39, 39, 42, 37, 38, 43, 39, 38, 40, 38, 41, 48, 40, 41, 563, 77.76]},
+        {"no": 6, "id": "25177", "name": "ปุญญพัฒน์ ศรวงษ์", "scores": [39, 44, 41, 37, 41, 43, 43, 40, 42, 41, 44, 51, 43, 44, 593, 81.91]},
+        {"no": 7, "id": "25178", "name": "ภูตะวัน แปลงยศ", "scores": [39, 37, 39, 34, 36, 43, 40, 38, 37, 39, 38, 49, 39, 37, 549, 75.83]},
+        {"no": 8, "id": "25179", "name": "วิชญะ แก้วนอก", "scores": [43, 43, 41, 37, 39, 44, 42, 40, 42, 42, 42, 51, 44, 43, 593, 81.91]},
+        {"no": 9, "id": "25180", "name": "ศุภณัฐ บุญโต", "scores": [44, 42, 43, 38, 40, 44, 42, 40, 44, 40, 45, 50, 42, 41, 595, 82.18]},
+        {"no": 10, "id": "25182", "name": "อัฎษฎางค์ สระบุญเรือง", "scores": [42, 37, 41, 38, 39, 42, 41, 38, 39, 39, 38, 50, 41, 39, 564, 77.90]},
+        {"no": 11, "id": "25278", "name": "สหพัฒน์ สิงหรัตน์", "scores": [43, 45, 44, 39, 42, 43, 42, 40, 43, 42, 43, 51, 43, 43, 603, 83.29]},
+        {"no": 12, "id": "25465", "name": "พีรพัฒน์ พรหมดวง", "scores": [40, 40, 40, 36, 38, 42, 40, 38, 39, 38, 39, 49, 40, 39, 558, 77.07]},
+        {"no": 13, "id": "25466", "name": "ณเกล้า แก้ววิเศษ", "scores": [42, 41, 41, 37, 39, 43, 41, 39, 41, 40, 42, 50, 41, 40, 577, 79.70]},
+        {"no": 14, "id": "25755", "name": "กิตติวินท์ กัมมารวัฒก์กุล", "scores": [38, 38, 38, 35, 37, 41, 39, 37, 38, 37, 38, 48, 39, 38, 544, 75.14]},
+        {"no": 15, "id": "25757", "name": "ทัศพร จานทอง", "scores": [41, 40, 40, 36, 38, 42, 40, 38, 40, 39, 40, 49, 40, 39, 562, 77.62]},
+        {"no": 16, "id": "25758", "name": "วันชนะ พลายละหาร", "scores": [45, 44, 43, 40, 42, 45, 43, 42, 44, 43, 44, 52, 45, 44, 616, 85.08]},
+        {"no": 17, "id": "26060", "name": "วชิรวิทย์ แช่มทะเพรียว", "scores": [43, 42, 42, 38, 40, 44, 42, 40, 42, 41, 42, 50, 43, 42, 591, 81.63]},
+        {"no": 18, "id": "26636", "name": "ปัณณวิชญ์ ขุนวิเศษ", "scores": [42, 40, 41, 37, 39, 43, 41, 39, 41, 40, 41, 49, 42, 40, 575, 79.42]},
+        {"no": 19, "id": "26653", "name": "ภัทรพล ภู่ระหงษ์", "scores": [46, 45, 44, 41, 44, 46, 44, 43, 45, 44, 45, 53, 46, 45, 631, 87.15]},
+        {"no": 20, "id": "25183", "name": "กัลยรัตน์ สุชาติพงศ์", "scores": [41, 39, 40, 36, 38, 42, 40, 38, 40, 39, 40, 49, 41, 39, 562, 77.62]},
+        {"no": 21, "id": "25185", "name": "ชญานุต พลเสน", "scores": [44, 43, 42, 39, 41, 44, 43, 41, 43, 42, 43, 51, 44, 43, 603, 83.29]},
+        {"no": 22, "id": "25186", "name": "ทิพพรัตน์ แก้ววิชิต", "scores": [43, 41, 41, 38, 40, 43, 42, 40, 42, 41, 42, 50, 43, 41, 587, 81.08]},
+        {"no": 23, "id": "25187", "name": "ธัญจิรา ถาวร", "scores": [45, 44, 43, 40, 43, 45, 44, 42, 44, 43, 44, 52, 45, 44, 618, 85.36]},
+        {"no": 24, "id": "25189", "name": "ณัฐพัชร์ ธาราผนึกสิน", "scores": [42, 40, 40, 37, 39, 43, 41, 39, 41, 40, 41, 49, 42, 40, 574, 79.28]},
+        {"no": 25, "id": "25190", "name": "พิมพ์พิชฌา เพ่งผล", "scores": [44, 42, 42, 39, 41, 44, 43, 41, 43, 42, 43, 51, 44, 42, 601, 83.01]},
+        {"no": 26, "id": "25191", "name": "เพชรรัตน์ ชาวสกุล", "scores": [43, 41, 41, 38, 40, 43, 42, 40, 42, 41, 42, 50, 43, 41, 587, 81.08]},
+        {"no": 27, "id": "25192", "name": "ภัทราพร อ่อนน้อม", "scores": [41, 39, 40, 36, 38, 42, 40, 38, 40, 39, 40, 49, 41, 39, 562, 77.62]},
+        {"no": 28, "id": "25193", "name": "รวีกานต์ ทองเลิศ", "scores": [45, 44, 43, 40, 42, 45, 44, 42, 44, 43, 44, 52, 45, 44, 617, 85.22]},
+        {"no": 29, "id": "25263", "name": "ปวิชญาดา เมืองวงษ์", "scores": [44, 43, 42, 39, 41, 44, 43, 41, 43, 42, 43, 51, 44, 43, 603, 83.29]},
+        {"no": 30, "id": "25285", "name": "ธัญญรัตน์ อินทวิรัตน์", "scores": [46, 45, 44, 41, 43, 46, 45, 43, 45, 44, 45, 53, 46, 45, 631, 87.15]},
+        {"no": 31, "id": "25289", "name": "ศิรดา ราศรี", "scores": [42, 40, 41, 37, 39, 43, 41, 39, 41, 40, 41, 49, 42, 40, 575, 79.42]},
+        {"no": 32, "id": "25312", "name": "พุฒพรรณ หาญพุฒ", "scores": [43, 42, 42, 38, 40, 44, 42, 40, 42, 41, 42, 50, 43, 42, 591, 81.63]},
+        {"no": 33, "id": "25468", "name": "ศิรดา สวัสดี", "scores": [44, 43, 42, 39, 41, 44, 43, 41, 43, 42, 43, 51, 44, 43, 603, 83.29]},
+        {"no": 34, "id": "25759", "name": "ณัฐชามญชุ์ กลิ่นธูป", "scores": [45, 44, 43, 40, 43, 45, 44, 42, 44, 43, 44, 52, 45, 44, 618, 85.36]},
+        {"no": 35, "id": "26349", "name": "มินตรา มีนิล", "scores": [43, 41, 41, 38, 40, 43, 42, 40, 42, 41, 42, 50, 43, 41, 587, 81.08]}
+    ];
+
+    // รายวิชาพื้นฐาน (9 วิชา)
+    const basicSubjects = [
+        {code: "ท14101", name: "ภาษาไทย", max: 55},
+        {code: "ค14101", name: "คณิตศาสตร์", max: 50},
+        {code: "ว14101", name: "วิทยาศาสตร์และเทคโนโลยี", max: 50},
+        {code: "ส14101", name: "สังคมศึกษา ศาสนา และวัฒนธรรม", max: 50},
+        {code: "ส14102", name: "ประวัติศาสตร์", max: 50},
+        {code: "พ14101", name: "สุขศึกษาและพลศึกษา", max: 50},
+        {code: "ศ14101", name: "ศิลปะ", max: 50},
+        {code: "ง14101", name: "การงานอาชีพ", max: 50},
+        {code: "อ14101", name: "ภาษาอังกฤษ", max: 55}
+    ];
+
+    // รายวิชาเพิ่มเติม (5 วิชา)
+    const addSubjects = [
+        {code: "ท14201", name: "ภาษาไทยเสริมประสบการณ์", max: 50},
+        {code: "ว14201", name: "คอมพิวเตอร์ศึกษา", max: 50},
+        {code: "ส14201", name: "การป้องกันการทุจริต", max: 57},
+        {code: "จ14201", name: "ภาษาจีน", max: 50},
+        {code: "อ14201", name: "ภาษาอังกฤษในชีวิตประจำวัน", max: 57}
+    ];
+
+    function toggleClearBtn() {
+        const val = document.getElementById("searchInput").value;
+        document.getElementById("clearBtn").style.display = val ? "block" : "none";
+    }
+
+    function clearInput() {
+        document.getElementById("searchInput").value = "";
+        toggleClearBtn();
+        document.getElementById("resultSection").style.display = "none";
+    }
+
+    function searchResult() {
+        const query = document.getElementById("searchInput").value.trim().toLowerCase();
+        if(!query) {
+            alert("กรุณากรอกรหัสประจำตัว 5 หลัก หรือเลขที่");
+            return;
+        }
+
+        // ค้นหาเฉพาะรหัสประจำตัว หรือ เลขที่ เท่านั้น
+        const student = rawData.find(s => 
+            s.id === query || 
+            s.no.toString() === query
+        );
+
+        if(student) {
+            displayStudentData(student);
+        } else {
+            alert("ไม่พบข้อมูลนักเรียน กรุณาตรวจสอบรหัสประจำตัว 5 หลัก หรือเลขที่ใหม่อีกครั้ง");
+        }
+    }
+
+    function displayStudentData(student) {
+        document.getElementById("resNo").textContent = student.no;
+        document.getElementById("resId").textContent = student.id;
+        document.getElementById("resName").textContent = student.name;
+        
+        const totalScore = student.scores[14];
+        const totalPct = student.scores[15];
+
+        document.getElementById("resTotalScore").textContent = totalScore;
+        document.getElementById("resTotalPct").textContent = totalPct.toFixed(2) + "%";
+
+        const tbody = document.getElementById("subjectsTableBody");
+        tbody.innerHTML = "";
+
+        // 1. หัวข้อ รายวิชาพื้นฐาน
+        const catBasicRow = document.createElement("tr");
+        catBasicRow.className = "category-row";
+        catBasicRow.innerHTML = `<td colspan="3">รายวิชาพื้นฐาน</td>`;
+        tbody.appendChild(catBasicRow);
+
+        basicSubjects.forEach((subj, idx) => {
+            const score = student.scores[idx];
+            const pct = ((score / subj.max) * 100).toFixed(2);
+            
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td><strong>${subj.code}</strong></td>
+                <td>${subj.name}</td>
+                <td style="text-align: center;">
+                    <span class="badge-pct">${pct}%</span>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        // 2. หัวข้อ รายวิชาเพิ่มเติม
+        const catAddRow = document.createElement("tr");
+        catAddRow.className = "category-row";
+        catAddRow.innerHTML = `<td colspan="3">รายวิชาเพิ่มเติม</td>`;
+        tbody.appendChild(catAddRow);
+
+        addSubjects.forEach((subj, idx) => {
+            const score = student.scores[idx + 9];
+            const pct = ((score / subj.max) * 100).toFixed(2);
+            
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td><strong>${subj.code}</strong></td>
+                <td>${subj.name}</td>
+                <td style="text-align: center;">
+                    <span class="badge-pct">${pct}%</span>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        document.getElementById("resultSection").style.display = "block";
+        document.getElementById("resultSection").scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
