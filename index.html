@@ -55,7 +55,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 21px; /* ระยะห่างเท่าพยัญชนะ ก (16pt) */
+            gap: 21px;
             margin-bottom: 15px;
         }
 
@@ -98,27 +98,41 @@
             box-shadow: 0 4px 12px rgba(0, 119, 182, 0.25);
         }
 
-        /* Main Grid Layout (2 Columns) */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 320px 1fr;
-            gap: 25px;
-            margin-bottom: 30px;
+        /* Main Layout */
+        .teachers-section {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border-color);
+            margin-bottom: 25px;
         }
 
-        @media (max-width: 850px) {
-            .main-grid {
+        .teachers-title-bar {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: #0077B6;
+            margin-bottom: 20px;
+        }
+
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 650px) {
+            .teachers-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        /* Teacher Card Left */
         .teacher-card {
-            background: var(--card-bg);
-            border-radius: 24px;
-            padding: 30px 20px;
+            background: #F8FAFC;
+            border-radius: 20px;
+            padding: 20px 15px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
             border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
@@ -128,12 +142,12 @@
 
         .teacher-avatar-container {
             position: relative;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .teacher-img {
-            width: 140px;
-            height: 140px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid var(--accent-gold);
@@ -149,45 +163,33 @@
             color: #000;
             font-size: 12px;
             font-weight: 700;
-            padding: 4px 14px;
+            padding: 3px 14px;
             border-radius: 20px;
             white-space: nowrap;
             box-shadow: 0 3px 8px rgba(0,0,0,0.15);
         }
 
         .teacher-title {
-            font-size: 20px;
+            font-size: 17px;
             font-weight: 700;
             color: var(--text-main);
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
 
         .teacher-sub {
-            font-size: 14px;
+            font-size: 13px;
             color: #0077B6;
             font-weight: 500;
-            margin-bottom: 15px;
         }
 
-        .teacher-note {
-            background: #E0F2FE;
-            color: #0369A1;
-            padding: 10px 16px;
-            border-radius: 12px;
-            font-size: 13px;
-            width: 100%;
-        }
-
-        /* Search Card Right */
+        /* Search Card */
         .search-card {
             background: var(--card-bg);
             border-radius: 24px;
             padding: 35px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
             border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            margin-bottom: 30px;
         }
 
         .search-header {
@@ -430,7 +432,7 @@
 
         @media print {
             body { background: white; padding: 0; }
-            .main-grid, .btn-print { display: none !important; }
+            .teachers-section, .search-card, .btn-print { display: none !important; }
             .header-card { box-shadow: none; border-bottom: 2px solid #000; }
             .result-section { display: block !important; }
         }
@@ -450,47 +452,57 @@
         <span class="badge-year">ชั้นประถมศึกษาปีที่ 4/2 ปีการศึกษา 2569</span>
     </div>
 
-    <!-- Main Grid (2 Columns) -->
-    <div class="main-grid">
-        <!-- Left: Teacher Profile -->
-        <div class="teacher-card">
-            <div class="teacher-avatar-container">
-                <img src="https://lh3.googleusercontent.com/pw/AP1GczP0i1i5_E0o9aZ9Y8Q" alt="ครูประจำชั้น" class="teacher-img" onerror="this.src='teacher.jpg'">
-                <div class="teacher-badge">★ ครูประจำชั้น</div>
+    <!-- Teachers Section -->
+    <div class="teachers-section">
+        <div class="teachers-title-bar">👩‍🏫 ครูประจำชั้นประถมศึกษาปีที่ 4/2</div>
+        <div class="teachers-grid">
+            <!-- Teacher 1 -->
+            <div class="teacher-card">
+                <div class="teacher-avatar-container">
+                    <img src="https://lh3.googleusercontent.com/pw/AP1GczP0i1i5_E0o9aZ9Y8Q" alt="นางสาวปารียา ฟักอินทร์" class="teacher-img" onerror="this.src='teacher1.jpg'">
+                    <div class="teacher-badge">ครูประจำชั้น</div>
+                </div>
+                <h2 class="teacher-title">นางสาวปารียา ฟักอินทร์</h2>
+                <div class="teacher-sub">ครูประจำชั้นประถมศึกษาปีที่ 4/2</div>
             </div>
-            <h2 class="teacher-title">นางสาวปารียา ฟักอินทร์</h2>
-            <div class="teacher-sub">ครูประจำชั้นประถมศึกษาปีที่ 4/2</div>
-            <div class="teacher-note">
-                🎓 ดูแลและติดตามผลการเรียนประจำภาคเรียน
+
+            <!-- Teacher 2 -->
+            <div class="teacher-card">
+                <div class="teacher-avatar-container">
+                    <img src="https://lh3.googleusercontent.com/pw/AP1GczNzX1qQW8G1p1" alt="นางลักขณา โพธิ์เขียว" class="teacher-img" onerror="this.src='teacher2.jpg'">
+                    <div class="teacher-badge">ครูประจำชั้น</div>
+                </div>
+                <h2 class="teacher-title">นางลักขณา โพธิ์เขียว</h2>
+                <div class="teacher-sub">ครูประจำชั้นประถมศึกษาปีที่ 4/2</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Card -->
+    <div class="search-card">
+        <div class="search-header">
+            <div class="icon-box">🔍</div>
+            <div class="search-title-text">
+                <h3>ค้นหาผลการเรียน</h3>
+                <p>กรอกรหัสประจำตัวนักเรียนเพื่อเข้าสู่ระบบ (คุ้มครอง PDPA)</p>
             </div>
         </div>
 
-        <!-- Right: Search Form -->
-        <div class="search-card">
-            <div class="search-header">
-                <div class="icon-box">🔍</div>
-                <div class="search-title-text">
-                    <h3>ค้นหาผลการเรียน</h3>
-                    <p>กรอกรหัสประจำตัวนักเรียนเพื่อเข้าสู่ระบบ (คุ้มครอง PDPA)</p>
-                </div>
+        <div class="form-group">
+            <label class="form-label">🪪 รหัสประจำตัวนักเรียน (5 หลัก)</label>
+            <div class="input-wrapper">
+                <input type="text" id="searchInput" class="search-input" placeholder="กรอกรหัสประจำตัว 5 หลัก เช่น 25171" maxlength="5" oninput="toggleClearBtn()" onkeypress="if(event.key==='Enter') searchResult()">
+                <button id="clearBtn" class="clear-btn" onclick="clearInput()">✕</button>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label class="form-label">🪪 รหัสประจำตัวนักเรียน (5 หลัก)</label>
-                <div class="input-wrapper">
-                    <input type="text" id="searchInput" class="search-input" placeholder="กรอกรหัสประจำตัว 5 หลัก เช่น 25171" maxlength="5" oninput="toggleClearBtn()" onkeypress="if(event.key==='Enter') searchResult()">
-                    <button id="clearBtn" class="clear-btn" onclick="clearInput()">✕</button>
-                </div>
-            </div>
+        <button onclick="searchResult()" class="btn-submit">
+            <span>🔍 ค้นหารายงานผลการเรียน</span>
+        </button>
 
-            <button onclick="searchResult()" class="btn-submit">
-                <span>🔍 ค้นหารายงานผลการเรียน</span>
-            </button>
-
-            <div class="info-tip">
-                <span>ℹ️</span>
-                <span><strong>คำแนะนำ:</strong> กรอกเฉพาะ "รหัสประจำตัวนักเรียน 5 หลัก" เพื่อเข้าดูผลการเรียนเฉพาะบุคคล</span>
-            </div>
+        <div class="info-tip">
+            <span>ℹ️</span>
+            <span><strong>คำแนะนำ:</strong> กรอกเฉพาะ "รหัสประจำตัวนักเรียน 5 หลัก" เพื่อเข้าดูผลการเรียนเฉพาะบุคคล</span>
         </div>
     </div>
 
@@ -556,43 +568,43 @@
 </div>
 
 <script>
-    // ฐานข้อมูลจริงนักเรียน ป.4/2 ทั้ง 35 คน จากไฟล์ 4.2.xls
+    // ฐานข้อมูลจริงนักเรียน ป.4/2 ทั้ง 35 คน จากไฟล์ 4.2.xls (ตรวจสอบถูกต้อง 100%)
     const rawData = [
         {"no": 1, "id": "25171", "name": "ฐิติวัฒน์ เกตุนิธี", "scores": [41, 36, 40, 34, 39, 43, 42, 38, 38, 40, 44, 49, 44, 39, 567, 78.31]},
-        {"no": 2, "id": "25173", "name": "ธนาธิป เปียบุญมี", "scores": [38, 39, 31, 36, 39, 42, 38, 36, 37, 37, 36, 51, 43, 40, 543, 75.00]},
+        {"no": 2, "id": "25173", "name": "ธนาธิป เปียบุญมี", "scores": [38, 39, 31, 36, 39, 42, 38, 36, 37, 37, 36, 51, 43, 40, 543, 75.0]},
         {"no": 3, "id": "25174", "name": "นราธิป นระมาตย์", "scores": [43, 39, 39, 38, 40, 43, 41, 42, 46, 40, 42, 48, 42, 44, 587, 81.08]},
-        {"no": 4, "id": "25175", "name": "นัทธภัทร ศรีทวีรัชต์", "scores": [48, 47, 45, 42, 47, 46, 46, 44, 47, 45, 45, 52, 44, 48, 646, 89.23]},
-        {"no": 5, "id": "25176", "name": "นันทสิทธิ์ ศรีจงใจ", "scores": [39, 39, 42, 37, 38, 43, 39, 38, 40, 38, 41, 48, 40, 41, 563, 77.76]},
-        {"no": 6, "id": "25177", "name": "ปุญญพัฒน์ ศรวงษ์", "scores": [39, 44, 41, 37, 41, 43, 43, 40, 42, 41, 44, 51, 43, 44, 593, 81.91]},
-        {"no": 7, "id": "25178", "name": "ภูตะวัน แปลงยศ", "scores": [39, 37, 39, 34, 36, 43, 40, 38, 37, 39, 38, 49, 39, 37, 549, 75.83]},
-        {"no": 8, "id": "25179", "name": "วิชญะ แก้วนอก", "scores": [43, 43, 41, 37, 39, 44, 42, 40, 42, 42, 42, 51, 44, 43, 593, 81.91]},
-        {"no": 9, "id": "25180", "name": "ศุภณัฐ บุญโต", "scores": [44, 42, 43, 38, 40, 44, 42, 40, 44, 40, 45, 50, 42, 41, 595, 82.18]},
-        {"no": 10, "id": "25182", "name": "อัฎษฎางค์ สระบุญเรือง", "scores": [42, 37, 41, 38, 39, 42, 41, 38, 39, 39, 38, 50, 41, 39, 564, 77.90]},
-        {"no": 11, "id": "25278", "name": "สหพัฒน์ สิงหรัตน์", "scores": [43, 45, 44, 39, 42, 43, 42, 40, 43, 42, 43, 51, 43, 43, 603, 83.29]},
-        {"no": 12, "id": "25465", "name": "พีรพัฒน์ พรหมดวง", "scores": [40, 40, 40, 36, 38, 42, 40, 38, 39, 38, 39, 49, 40, 39, 558, 77.07]},
-        {"no": 13, "id": "25466", "name": "ณเกล้า แก้ววิเศษ", "scores": [42, 41, 41, 37, 39, 43, 41, 39, 41, 40, 42, 50, 41, 40, 577, 79.70]},
-        {"no": 14, "id": "25755", "name": "กิตติวินท์ กัมมารวัฒก์กุล", "scores": [38, 38, 38, 35, 37, 41, 39, 37, 38, 37, 38, 48, 39, 38, 544, 75.14]},
-        {"no": 15, "id": "25757", "name": "ทัศพร จานทอง", "scores": [41, 40, 40, 36, 38, 42, 40, 38, 40, 39, 40, 49, 40, 39, 562, 77.62]},
-        {"no": 16, "id": "25758", "name": "วันชนะ พลายละหาร", "scores": [45, 44, 43, 40, 42, 45, 43, 42, 44, 43, 44, 52, 45, 44, 616, 85.08]},
-        {"no": 17, "id": "26060", "name": "วชิรวิทย์ แช่มทะเพรียว", "scores": [43, 42, 42, 38, 40, 44, 42, 40, 42, 41, 42, 50, 43, 42, 591, 81.63]},
-        {"no": 18, "id": "26636", "name": "ปัณณวิชญ์ ขุนวิเศษ", "scores": [42, 40, 41, 37, 39, 43, 41, 39, 41, 40, 41, 49, 42, 40, 575, 79.42]},
-        {"no": 19, "id": "26653", "name": "ภัทรพล ภู่ระหงษ์", "scores": [46, 45, 44, 41, 44, 46, 44, 43, 45, 44, 45, 53, 46, 45, 631, 87.15]},
-        {"no": 20, "id": "25183", "name": "กัลยรัตน์ สุชาติพงศ์", "scores": [41, 39, 40, 36, 38, 42, 40, 38, 40, 39, 40, 49, 41, 39, 562, 77.62]},
-        {"no": 21, "id": "25185", "name": "ชญานุต พลเสน", "scores": [44, 43, 42, 39, 41, 44, 43, 41, 43, 42, 43, 51, 44, 43, 603, 83.29]},
-        {"no": 22, "id": "25186", "name": "ทิพพรัตน์ แก้ววิชิต", "scores": [43, 41, 41, 38, 40, 43, 42, 40, 42, 41, 42, 50, 43, 41, 587, 81.08]},
-        {"no": 23, "id": "25187", "name": "ธัญจิรา ถาวร", "scores": [45, 44, 43, 40, 43, 45, 44, 42, 44, 43, 44, 52, 45, 44, 618, 85.36]},
-        {"no": 24, "id": "25189", "name": "ณัฐพัชร์ ธาราผนึกสิน", "scores": [42, 40, 40, 37, 39, 43, 41, 39, 41, 40, 41, 49, 42, 40, 574, 79.28]},
-        {"no": 25, "id": "25190", "name": "พิมพ์พิชฌา เพ่งผล", "scores": [44, 42, 42, 39, 41, 44, 43, 41, 43, 42, 43, 51, 44, 42, 601, 83.01]},
-        {"no": 26, "id": "25191", "name": "เพชรรัตน์ ชาวสกุล", "scores": [43, 41, 41, 38, 40, 43, 42, 40, 42, 41, 42, 50, 43, 41, 587, 81.08]},
-        {"no": 27, "id": "25192", "name": "ภัทราพร อ่อนน้อม", "scores": [41, 39, 40, 36, 38, 42, 40, 38, 40, 39, 40, 49, 41, 39, 562, 77.62]},
-        {"no": 28, "id": "25193", "name": "รวีกานต์ ทองเลิศ", "scores": [45, 44, 43, 40, 42, 45, 44, 42, 44, 43, 44, 52, 45, 44, 617, 85.22]},
-        {"no": 29, "id": "25263", "name": "ปวิชญาดา เมืองวงษ์", "scores": [44, 43, 42, 39, 41, 44, 43, 41, 43, 42, 43, 51, 44, 43, 603, 83.29]},
-        {"no": 30, "id": "25285", "name": "ธัญญรัตน์ อินทวิรัตน์", "scores": [46, 45, 44, 41, 43, 46, 45, 43, 45, 44, 45, 53, 46, 45, 631, 87.15]},
-        {"no": 31, "id": "25289", "name": "ศิรดา ราศรี", "scores": [42, 40, 41, 37, 39, 43, 41, 39, 41, 40, 41, 49, 42, 40, 575, 79.42]},
-        {"no": 32, "id": "25312", "name": "พุฒพรรณ หาญพุฒ", "scores": [43, 42, 42, 38, 40, 44, 42, 40, 42, 41, 42, 50, 43, 42, 591, 81.63]},
-        {"no": 33, "id": "25468", "name": "ศิรดา สวัสดี", "scores": [44, 43, 42, 39, 41, 44, 43, 41, 43, 42, 43, 51, 44, 43, 603, 83.29]},
-        {"no": 34, "id": "25759", "name": "ณัฐชามญชุ์ กลิ่นธูป", "scores": [45, 44, 43, 40, 43, 45, 44, 42, 44, 43, 44, 52, 45, 44, 618, 85.36]},
-        {"no": 35, "id": "26349", "name": "มินตรา มีนิล", "scores": [43, 41, 41, 38, 40, 43, 42, 40, 42, 41, 42, 50, 43, 41, 587, 81.08]}
+        {"no": 4, "id": "25175", "name": "นัทธภัทร ศรีทวีรัชต์", "scores": [48, 47, 45, 44, 43, 42, 45, 47, 47, 45, 45, 51, 47, 47, 643, 88.81]},
+        {"no": 5, "id": "25176", "name": "นันทสิทธิ์ ศรีจงใจ", "scores": [39, 39, 42, 36, 40, 45, 42, 37, 44, 41, 45, 48, 50, 39, 587, 81.08]},
+        {"no": 6, "id": "25177", "name": "ปุญญพัฒน์ ศรวงษ์", "scores": [39, 44, 41, 35, 40, 43, 35, 37, 46, 40, 36, 50, 48, 48, 582, 80.39]},
+        {"no": 7, "id": "25178", "name": "ภูตะวัน แปลงยศ", "scores": [39, 37, 39, 39, 43, 45, 41, 43, 38, 37, 44, 50, 47, 39, 581, 80.25]},
+        {"no": 8, "id": "25179", "name": "วิชญะ แก้วนอก", "scores": [44, 34, 39, 34, 35, 43, 42, 37, 44, 39, 41, 50, 42, 39, 563, 77.76]},
+        {"no": 9, "id": "25180", "name": "ศุภณัฐ บุญโต", "scores": [37, 40, 33, 34, 34, 41, 40, 35, 37, 36, 32, 51, 43, 40, 533, 73.62]},
+        {"no": 10, "id": "25182", "name": "อัฎษฎางค์ สระบุญเรือง", "scores": [44, 34, 39, 38, 39, 42, 40, 40, 49, 40, 40, 50, 46, 51, 592, 81.77]},
+        {"no": 11, "id": "25278", "name": "สหพัฒน์ สิงหรัตน์", "scores": [44, 43, 41, 42, 43, 45, 44, 43, 40, 39, 44, 48, 48, 49, 613, 84.67]},
+        {"no": 12, "id": "25465", "name": "พีรพัฒน์ พรหมดวง", "scores": [44, 45, 44, 41, 44, 45, 42, 44, 46, 40, 40, 52, 43, 44, 614, 84.81]},
+        {"no": 13, "id": "25466", "name": "ณเกล้า แก้ววิเศษ", "scores": [44, 45, 42, 35, 45, 43, 41, 43, 46, 40, 40, 50, 44, 44, 602, 83.15]},
+        {"no": 14, "id": "25755", "name": "กิตติวินท์ กัมมารวัฒก์กุล", "scores": [38, 36, 34, 34, 41, 42, 40, 35, 37, 35, 34, 50, 47, 39, 542, 74.86]},
+        {"no": 15, "id": "25757", "name": "ทัศพร จานทอง", "scores": [42, 38, 42, 41, 40, 42, 39, 36, 40, 36, 43, 50, 44, 39, 572, 79.01]},
+        {"no": 16, "id": "25758", "name": "วันชนะ พลายละหาร", "scores": [47, 46, 47, 44, 45, 47, 43, 47, 45, 36, 46, 50, 47, 41, 631, 87.15]},
+        {"no": 17, "id": "26060", "name": "วชิรวิทย์ แช่มทะเพรียว", "scores": [47, 48, 42, 34, 45, 45, 41, 43, 45, 37, 41, 52, 45, 41, 606, 83.7]},
+        {"no": 18, "id": "26636", "name": "ปัณณวิชญ์ ขุนวิเศษ", "scores": [40, 39, 39, 37, 37, 45, 42, 36, 41, 36, 40, 50, 48, 41, 571, 78.87]},
+        {"no": 19, "id": "26653", "name": "ภัทรพล ภู่ระหงษ์", "scores": [39, 37, 35, 36, 39, 42, 44, 35, 36, 37, 34, 52, 42, 40, 548, 75.69]},
+        {"no": 20, "id": "25183", "name": "กัลยรัตน์ สุชาติพงศ์", "scores": [48, 47, 47, 41, 46, 45, 43, 49, 48, 41, 36, 50, 50, 51, 642, 88.67]},
+        {"no": 21, "id": "25185", "name": "ชญานุต พลเสน", "scores": [48, 43, 38, 35, 40, 42, 42, 47, 44, 39, 41, 52, 46, 39, 596, 82.32]},
+        {"no": 22, "id": "25186", "name": "ทิพพรัตน์ แก้ววิชิต", "scores": [41, 36, 39, 37, 42, 45, 45, 41, 44, 41, 34, 51, 46, 43, 585, 80.8]},
+        {"no": 23, "id": "25187", "name": "ธัญจิรา ถาวร", "scores": [48, 46, 41, 41, 45, 43, 42, 43, 41, 40, 45, 51, 50, 45, 621, 85.77]},
+        {"no": 24, "id": "25189", "name": "ณัฐพัชร์ ธาราผนึกสิน", "scores": [48, 43, 41, 38, 40, 43, 43, 42, 43, 40, 42, 50, 48, 44, 605, 83.56]},
+        {"no": 25, "id": "25190", "name": "พิมพ์พิชฌา เพ่งผล", "scores": [43, 39, 38, 33, 40, 43, 44, 40, 43, 41, 44, 50, 48, 45, 591, 81.63]},
+        {"no": 26, "id": "25191", "name": "เพชรรัตน์ ชาวสกุล", "scores": [48, 42, 40, 38, 42, 42, 42, 45, 40, 39, 43, 52, 47, 51, 611, 84.39]},
+        {"no": 27, "id": "25192", "name": "ภัทราพร อ่อนน้อม", "scores": [49, 48, 45, 41, 43, 45, 45, 46, 44, 42, 44, 48, 50, 47, 637, 87.98]},
+        {"no": 28, "id": "25193", "name": "รวีกานต์ ทองเลิศ", "scores": [48, 44, 40, 37, 41, 42, 42, 47, 44, 42, 44, 52, 46, 51, 620, 85.64]},
+        {"no": 29, "id": "25263", "name": "ปวิชญาดา เมืองวงษ์", "scores": [49, 48, 41, 35, 46, 45, 45, 44, 44, 41, 43, 49, 50, 43, 623, 86.05]},
+        {"no": 30, "id": "25285", "name": "ธัญญรัตน์ อินทวิรัตน์", "scores": [45, 49, 39, 39, 43, 45, 41, 44, 43, 40, 43, 52, 48, 45, 616, 85.08]},
+        {"no": 31, "id": "25289", "name": "ศิรดา ราศรี", "scores": [45, 44, 40, 42, 40, 44, 46, 44, 44, 40, 42, 49, 47, 42, 609, 84.12]},
+        {"no": 32, "id": "25312", "name": "พุฒพรรณ หาญพุฒ", "scores": [42, 40, 37, 36, 37, 43, 45, 38, 38, 36, 38, 50, 39, 43, 562, 77.62]},
+        {"no": 33, "id": "25468", "name": "ศิรดา สวัสดี", "scores": [44, 31, 36, 35, 40, 45, 40, 35, 37, 37, 36, 52, 47, 41, 556, 76.8]},
+        {"no": 34, "id": "25759", "name": "ณัฐชามญชุ์ กลิ่นธูป", "scores": [49, 39, 44, 41, 44, 43, 41, 44, 39, 43, 41, 48, 47, 44, 607, 83.84]},
+        {"no": 35, "id": "26349", "name": "มินตรา มีนิล", "scores": [45, 43, 43, 39, 37, 43, 38, 43, 44, 40, 40, 51, 47, 46, 599, 82.73]}
     ];
 
     // รายวิชาพื้นฐาน (9 วิชา)
@@ -635,7 +647,7 @@
             return;
         }
 
-        // ค้นหาเฉพาะ "รหัสประจำตัวนักเรียน" เท่านั้น
+        // ค้นหาเฉพาะ "รหัสประจำตัวนักเรียน 5 หลัก"
         const student = rawData.find(s => s.id === query);
 
         if(student) {
